@@ -1,27 +1,27 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Application implements LambdaExpression {
+public class Application implements Expression {
 
     // t1 t2
     // right is being put into the header of left
-    public final LambdaExpression left;
-    public final LambdaExpression right;
+    public final Expression left;
+    public final Expression right;
 
-    public Application(LambdaExpression left, LambdaExpression right) {
+    public Application(Expression left, Expression right) {
         this.left = left;
         this.right = right;
     }
 
     @Override
-    public List<LambdaExpression> freeIdentifier() {
+    public List<Expression> freeIdentifier() {
 
-        List<LambdaExpression> list = new ArrayList<LambdaExpression>();
-        for (LambdaExpression e : left.freeIdentifier()) {
+        List<Expression> list = new ArrayList<Expression>();
+        for (Expression e : left.freeIdentifier()) {
             list.add(e);
         }
 
-        for (LambdaExpression e : right.freeIdentifier()) {
+        for (Expression e : right.freeIdentifier()) {
             list.add(e);
         }
 
@@ -29,22 +29,16 @@ public class Application implements LambdaExpression {
     }
 
     @Override
-    public LambdaExpression reduce() {
-
-        Variable v;
-
-        if(!(right instanceof Variable)) {
-            v = (Variable) right.reduce();
-        }
-
-        //TODO i am here
+    public Expression reduce() {
 
         return null;
     }
 
+
     @Override
-    public String getName() {
-        return null;
+    public boolean reducable() {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }

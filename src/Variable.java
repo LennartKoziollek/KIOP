@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Variable implements LambdaExpression {
+public class Variable implements Expression {
 
     public final String name;
 
@@ -10,8 +10,8 @@ public class Variable implements LambdaExpression {
     }
 
     @Override
-    public List<LambdaExpression> freeIdentifier() {
-        List<LambdaExpression> list = new ArrayList<LambdaExpression>();
+    public List<Expression> freeIdentifier() {
+        List<Expression> list = new ArrayList<Expression>();
         list.add(this);
         return list;
     }
@@ -22,8 +22,10 @@ public class Variable implements LambdaExpression {
     }
 
     @Override
-    public String getName() {
-        return name;
+    public boolean reducable() {
+        return false;
     }
+
+    // maybe i need a equals method
 
 }

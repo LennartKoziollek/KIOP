@@ -1,24 +1,37 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Abstraction implements LambdaExpression {
+public class Abstraction implements Expression {
 
     public final Variable header;
-    public final LambdaExpression body;
+    public final Expression body;
 
-    public Abstraction(Variable header, LambdaExpression body) {
+    public Abstraction(Variable header, Expression body) {
         this.header = header;
         this.body = body;
     }
 
-    public LambdaExpression apply(LambdaExpression t) {
+    public boolean reducable() {
+        return this.body.reducable();
+    }
+
+    public Expression apply(Expression t) {
+
+        if(t instanceof Variable) {
+
+        } else if(t instanceof Application) {
+
+        } else { // t instance of Abstraction
+            
+        }
+
         return null;
     }
 
     @Override
-    public List<LambdaExpression> freeIdentifier() {
-        List<LambdaExpression> list = new ArrayList<LambdaExpression>();
-        for (LambdaExpression e : body.freeIdentifier()) {
+    public List<Expression> freeIdentifier() {
+        List<Expression> list = new ArrayList<Expression>();
+        for (Expression e : body.freeIdentifier()) {
             list.add(e);
         }
         while (list.remove(header));
@@ -26,15 +39,12 @@ public class Abstraction implements LambdaExpression {
     }
 
     @Override
-    public LambdaExpression reduce() {
+    public Expression reduce() {
 
-        // TODO Auto-generated method stub
-        return null;
+        if(this.body.reducable()) {
+            return new Abstraction(this.header, this.body.reduce());
+        }
+
+        return this;
     }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
 }

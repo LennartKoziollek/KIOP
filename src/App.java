@@ -1,14 +1,17 @@
 public class App {
     public static void main(String[] args) throws Exception {
 
+        
+        // ((lambda x.x) y) in code form
         Variable x = new Variable("x");
         Variable y = new Variable("y");
-        Application a = new Application(y, y);
-        Abstraction abstr = new Abstraction(x, a);
 
-        
-        System.out.println("Header: " + abstr.header.getName());
-        abstr.freeIdentifier().forEach((e) -> System.out.println("Free: " + e.getName()));
+        Abstraction lambda = new Abstraction(x, x);
+        Application application = new Application(lambda, y); // not sure what this is for yet
+
+        application.reduce(); //was macht jetzt eigentlich reduce?
+        lambda.apply(y);
+
 
     }
 }
